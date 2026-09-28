@@ -1,30 +1,27 @@
-// Program 8: Inline and Friend Function
+// Concept 8: Constructor and Destructor Order
 #include <iostream>
-using namespace std;
 
-class Test {
-private:
-    int value;
-
+class Base {
 public:
-    Test(int v) {
-        value = v;
+    Base() {
+        std::cout << "Base constructor\n";
     }
-
-    inline int getValue() {
-        return value;
+    ~Base() {
+        std::cout << "Base destructor\n";
     }
-
-    friend void show(Test t);
 };
 
-void show(Test t) {
-    cout << t.value;
-}
+class Derived : public Base {
+public:
+    Derived() {
+        std::cout << "Derived constructor\n";
+    }
+    ~Derived() {
+        std::cout << "Derived destructor\n";
+    }
+};
 
 int main() {
-    Test obj(50);
-    cout << obj.getValue() << endl;
-    show(obj);
+    Derived object;
     return 0;
 }

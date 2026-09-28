@@ -1,15 +1,50 @@
-// Program 4: Functions
+// Concept 4: Multilevel Inheritance (Person -> Employee -> Manager)
 #include <iostream>
-using namespace std;
+#include <string>
+#include <utility>
 
-int add(int, int);
+class Person {
+protected:
+    std::string name;
+
+public:
+    explicit Person(std::string personName) : name(std::move(personName)) {}
+
+    void showPerson() const {
+        std::cout << "Name: " << name << '\n';
+    }
+};
+
+class Employee : public Person {
+protected:
+    int employeeId;
+
+public:
+    Employee(std::string employeeName, int id)
+        : Person(std::move(employeeName)), employeeId(id) {}
+
+    void showEmployee() const {
+        std::cout << "Employee ID: " << employeeId << '\n';
+    }
+};
+
+class Manager : public Employee {
+private:
+    int teamSize;
+
+public:
+    Manager(std::string managerName, int id, int size)
+        : Employee(std::move(managerName), id), teamSize(size) {}
+
+    void showManager() const {
+        showPerson();
+        showEmployee();
+        std::cout << "Team Size: " << teamSize << '\n';
+    }
+};
 
 int main() {
-    int a = 10, b = 20;
-    cout << "Sum = " << add(a, b) << endl;
+    Manager manager("Ravi", 501, 8);
+    manager.showManager();
     return 0;
-}
-
-int add(int x, int y) {
-    return x + y;
 }

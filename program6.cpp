@@ -1,18 +1,44 @@
-// Program 6: Constructor and Destructor
+// Concept 6: Multiple Inheritance
 #include <iostream>
-using namespace std;
 
-class Demo {
+class Academic {
+protected:
+    int academicMarks;
+
 public:
-    Demo() {
-        cout << "Constructor called\n";
+    explicit Academic(int marks) : academicMarks(marks) {}
+
+    void showAcademic() const {
+        std::cout << "Academic Marks: " << academicMarks << '\n';
     }
-    ~Demo() {
-        cout << "Destructor called\n";
+};
+
+class Sports {
+protected:
+    int sportsMarks;
+
+public:
+    explicit Sports(int marks) : sportsMarks(marks) {}
+
+    void showSports() const {
+        std::cout << "Sports Marks: " << sportsMarks << '\n';
+    }
+};
+
+class Student : public Academic, public Sports {
+public:
+    Student(int academic, int sports)
+        : Academic(academic), Sports(sports) {}
+
+    void showTotal() const {
+        std::cout << "Total Marks: " << academicMarks + sportsMarks << '\n';
     }
 };
 
 int main() {
-    Demo d;
+    Student student(80, 15);
+    student.showAcademic();
+    student.showSports();
+    student.showTotal();
     return 0;
 }

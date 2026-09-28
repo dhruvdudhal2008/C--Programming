@@ -1,11 +1,29 @@
-// Program 3: Loop and Array
+// Concept 3: Public versus Private Inheritance
 #include <iostream>
-using namespace std;
+
+class Base {
+public:
+    void show() const {
+        std::cout << "Base public function\n";
+    }
+};
+
+class PublicDerived : public Base {
+};
+
+class PrivateDerived : private Base {
+public:
+    void callBaseShow() const {
+        show();
+    }
+};
 
 int main() {
-    int marks[5] = {78, 82, 91, 67, 88};
-    for (int i = 0; i < 5; i++) {
-        cout << marks[i] << " ";
-    }
+    PublicDerived publicObject;
+    publicObject.show();
+
+    PrivateDerived privateObject;
+    privateObject.callBaseShow();
+    // privateObject.show();  // Error: show() is private through private inheritance.
     return 0;
 }

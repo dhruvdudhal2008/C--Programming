@@ -1,19 +1,32 @@
-// Program 7: Static Member
+// Concept 7: Resolving Multiple-Inheritance Ambiguity
 #include <iostream>
-using namespace std;
 
-class Student {
+class Academic {
 public:
-    static int count;
-    Student() {
-        count++;
+    void display() const {
+        std::cout << "Academic information\n";
     }
 };
 
-int Student::count = 0;
+class Sports {
+public:
+    void display() const {
+        std::cout << "Sports information\n";
+    }
+};
+
+class Student : public Academic, public Sports {
+public:
+    void displayAll() const {
+        Academic::display();
+        Sports::display();
+    }
+};
 
 int main() {
-    Student s1, s2, s3;
-    cout << Student::count;
+    Student student;
+    student.Academic::display();
+    student.Sports::display();
+    student.displayAll();
     return 0;
 }
